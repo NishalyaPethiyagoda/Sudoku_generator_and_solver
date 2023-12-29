@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-const int size = 9;
+#define SIZE 9
  
 /* 
 function process: condition checking.
@@ -53,10 +53,10 @@ function process: generating sudoku puzzle solution by inserting correct values.
  */
 bool solver_funct(vector <vector<int>> &matrix, int row, int col)
 {   
-    if (row == size - 1 && col == size) // if, 8th row and 9th column reached, avoid backtracking -> return true 
+    if (row == SIZE - 1 && col == SIZE) // if, 8th row and 9th column reached, avoid backtracking -> return true 
         return true;
  
-    if (col == size)              // when last column reached, move 1st column of next row
+    if (col == SIZE)              // when last column reached, move 1st column of next row
 	{
 		col = 0;
         row++;     
@@ -67,7 +67,7 @@ bool solver_funct(vector <vector<int>> &matrix, int row, int col)
        	return solver_funct(matrix, row, col + 1);
 	}
  
-    for (int value = 1; value <= size; value++)
+    for (int value = 1; value <= SIZE; value++)
     {     
         if ( conditions_correct(matrix, row, col, value) )   //checking for correctness of a certain inserted value
         {
@@ -91,9 +91,9 @@ function process: printing solved sudoku puzzle on console
 
 void display_solution(vector <vector<int> > &matrix)
 {
-    for (int row = 0; row < size; row++)
+    for (int row = 0; row < SIZE; row++)
 	{
-        for (int col = 0; col < size; col++)
+        for (int col = 0; col < SIZE; col++)
 		{
             if(col == 3 || col == 6)
                 cout << " | ";
@@ -102,7 +102,7 @@ void display_solution(vector <vector<int> > &matrix)
         if(row == 2 || row == 5)
 		{
             cout << endl;
-            for(int i = 0; i<size; i++)
+            for(int i = 0; i< SIZE; i++)
                 cout << "---";
         }
     	cout << endl;

@@ -2,10 +2,12 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+
+#define SIZE 9
+
 using namespace std;
 
-const int size = 9;
-int matrix[size][size];
+int matrix[SIZE][SIZE];
 
 class Sudoku_matrix
 {
@@ -28,7 +30,7 @@ class Sudoku_matrix
 */
 bool Sudoku_matrix::row_condition(int row, int val)
 {
-    for (int col = 0; col < size; col++)
+    for (int col = 0; col < SIZE; col++)
     {
     	if (matrix[row][col] == val)
     	    return true;
@@ -42,7 +44,7 @@ bool Sudoku_matrix::row_condition(int row, int val)
 */
 bool Sudoku_matrix::column_condition(int col, int val)
 {
-    for (int row = 0; row < size; row++)
+    for (int row = 0; row < SIZE; row++)
     {
         if (matrix[row][col] == val)
             return true;
@@ -109,12 +111,12 @@ void Sudoku_matrix::fill_to_diagonal(int cr, int cc)
 */
 bool Sudoku_matrix::fill_to_other_locations(int row, int col)
 {
-    if (col >= size && row < size-1 )
+    if (col >= SIZE && row < SIZE-1 )
     {
         row ++;
         col = 0;
     }
-    if (row >= size && col >= size)
+    if (row >= SIZE && col >= SIZE)
     {
         return true;
 	}    
@@ -125,7 +127,7 @@ bool Sudoku_matrix::fill_to_other_locations(int row, int col)
         col = 3;
     }
     
-    else if (row < size-3)
+    else if (row < SIZE-3)
     {
         if (col == (int)(row/3)*3)
     	col +=  3;
@@ -133,16 +135,16 @@ bool Sudoku_matrix::fill_to_other_locations(int row, int col)
     
     else
     {
-        if (col == size-3)
+        if (col == SIZE-3)
         {
             row++;
             col = 0;
-            if (row >= size)
+            if (row >= SIZE)
                 return true;
         }
     }
     
-    for (int number = 1; number<=size; number++)
+    for (int number = 1; number<=SIZE; number++)
     {
         if ( all_conditions_true(row, col, number) )
         {
@@ -180,7 +182,7 @@ void Sudoku_matrix::generator_function()
 */
 void Sudoku_matrix::creating_blanks(int num_f_indices)
 {    
-    for (int row = 0; row < size; row++)
+    for (int row = 0; row < SIZE; row++)
     {
         int count = 0;
             
@@ -203,9 +205,9 @@ void Sudoku_matrix::creating_blanks(int num_f_indices)
 */    
 void Sudoku_matrix::display()
 {
-    for (int row = 0; row < size; row++)
+    for (int row = 0; row < SIZE; row++)
 	{
-        for (int col = 0; col < size; col++)
+        for (int col = 0; col < SIZE; col++)
 		{
             if(col == 3 || col == 6)
                 cout << " | ";
@@ -214,7 +216,7 @@ void Sudoku_matrix::display()
         if(row == 2 || row == 5)
 		{
             cout << endl;
-            for(int i = 0; i<size; i++)
+            for(int i = 0; i<SIZE; i++)
                 cout << "---";
         }
     	cout << endl;
@@ -228,9 +230,9 @@ int main()
 	srand(time(0));
 	
 	//intializing the matrix with 0
-    for (int row = 0; row < size; row++)
+    for (int row = 0; row < SIZE; row++)
     {
-    	for (int col; col < size; col++)
+    	for (int col; col < SIZE; col++)
     	{
     		matrix[row][col] = 0;   
 		}
@@ -254,14 +256,15 @@ int main()
     //inpting generated puzzle to text file
     ofstream file;
     file.open("matrix.txt");
-    for(int i = 0 ; i < size; i++ )
+    for(int i = 0 ; i < SIZE; i++ )
     {
-    	for(int j = 0 ; j < size; j++ )
+    	for(int j = 0 ; j < SIZE; j++ )
     	{
     		file <<matrix[i][j]<<" ";
 		}
 		file<<endl;
 	}
     
+    cout<<"done";
     return 0;
 }
